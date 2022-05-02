@@ -1,0 +1,30 @@
+{
+  "name": "docketeer",
+  "version": "1.0.0",
+  "description": "A tiny application that lets you use a dockerised browser for Puppeteer",
+  "main": "./index.mjs",
+  "bin": {
+    "docketeer": "index.mjs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andy Earnshaw",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyearnshaw/docketeer.git"
+  },
+  "keywords": [
+    "puppeteer",
+    "docker",
+    "testing",
+    "chrome",
+    "chromium",
+    "firefox"
+  ],
+  "bugs": {
+    "url": "https://github.com/andyearnshaw/docketeer/issues"
+  },
+  "homepage": "https://github.com/andyearnshaw/docketeer#readme"
+}
