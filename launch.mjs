@@ -31,3 +31,4 @@ const docker = spawn(
 // Always kill the container when we're done if it's not already dead
 process.on('exit', () => docker.kill());
 process.on('SIGTERM', () => docker.kill());
+process.on('SIGINT', () => docker.kill());
