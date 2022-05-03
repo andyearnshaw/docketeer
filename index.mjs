@@ -38,6 +38,8 @@ spawnSync(script[0], script.slice(1), {
   shell: process.env.SHELL,
   stdio: 'inherit',
   env: {
+    ...process.env,
+
     // A little trick for Node scripts to send control codes even if they're not in a TTY
     FORCE_COLOR: 'true',
 
