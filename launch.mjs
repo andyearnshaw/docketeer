@@ -20,7 +20,10 @@ const docker = spawn(
     image,
     execPath,
     '--remote-debugging-address=0.0.0.0',
-    ...flags,
+
+    // Pass in the flags specified by Puppeteer, but remove the --user-data-dir flag as a partial
+    // workaround for https://github.com/andyearnshaw/docketeer/issues/1
+    ...flags.filter(flag => !flag.startsWith("--user-data-dir=")),
   ],
   {
     // shell: process.env.SHELL,
