@@ -84,3 +84,23 @@ Executed in  387.92 secs      fish           external
 ```
 
 That's a saving of over 15 minutes! 
+
+## Known Issues
+
+* When Puppeteer is launched without supplying the `userDataDir` option, it generates a temp dir and
+  changes how the browser is closed: it sends a `SIGKILL` instead of allowing the browser to close
+  gracefully. With Docketeer, this kills the entire spawned process tree, including the `docker run`
+  command, so the browser does not actually exit and the container is kept alive.
+
+  To work around this, make sure you supply the `userDataDir` option to `puppeteer.launch()` when
+  running via Docketeer:
+
+  ```javascript
+  puppeteer.launch({
+    userDataDir: process.env.DOCKETEER_ENABLED ? './' : null,
+    // ...
+  });
+  ```
+
+  Don't worry about the directory specified, Docketeer will remove the `--user-data-dir` flag
+  supplied to Chrome.
