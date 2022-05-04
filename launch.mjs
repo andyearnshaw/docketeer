@@ -23,7 +23,7 @@ const docker = spawn(
 
     // Pass in the flags specified by Puppeteer, but remove the --user-data-dir flag as a partial
     // workaround for https://github.com/andyearnshaw/docketeer/issues/1
-    ...flags.filter(flag => !flag.startsWith("--user-data-dir=")),
+    ...flags.filter((flag) => !flag.startsWith('--user-data-dir=')),
   ],
   {
     // shell: process.env.SHELL,
