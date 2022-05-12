@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const imgArgIndex = args.findIndex((arg) => !arg.startsWith('--'));
 const dockerImage =
-  process.env.DOCKETEER_IMAGE || args.slice(imgArgIndex, imgArgIndex + 1);
+  process.env.DOCKETEER_IMAGE || args.slice(imgArgIndex, imgArgIndex + 1)[0];
 const script = args.slice(imgArgIndex + (process.env.DOCKETEER_IMAGE ? 0 : 1));
 
 const docketeerArgs = args.slice(0, imgArgIndex);

@@ -3,17 +3,30 @@
   "version": "1.0.4",
   "description": "A tiny application that lets you use a dockerised browser for Puppeteer",
   "main": "./index.mjs",
+  "module": "./index.mjs",
   "bin": {
     "docketeer": "index.mjs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules $(npm bin)/jest",
+    "test:watch": "npm test -- --watch"
   },
   "author": "Andy Earnshaw",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andyearnshaw/docketeer.git"
+  },
+  "jest": {
+    "clearMocks": true,
+    "collectCoverage": true,
+    "moduleNameMapper": {
+      "child_process": "<rootDir>/__mocks__/child_process.mjs"
+    },
+    "testMatch": [
+      "**/?(*.)+(spec|test).mjs"
+    ],
+    "transform": {}
   },
   "keywords": [
     "puppeteer",
@@ -26,5 +39,8 @@
   "bugs": {
     "url": "https://github.com/andyearnshaw/docketeer/issues"
   },
-  "homepage": "https://github.com/andyearnshaw/docketeer#readme"
+  "homepage": "https://github.com/andyearnshaw/docketeer#readme",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
 }
