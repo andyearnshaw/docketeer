@@ -3,9 +3,9 @@
   "version": "1.0.4",
   "description": "A tiny application that lets you use a dockerised browser for Puppeteer",
   "main": "./index.mjs",
-  "module": "./index.mjs",
+  "module": "./src/index.mjs",
   "bin": {
-    "docketeer": "index.mjs"
+    "docketeer": "./src/index.mjs"
   },
   "scripts": {
     "test": "node --experimental-vm-modules $(npm bin)/jest",
@@ -21,7 +21,7 @@
     "clearMocks": true,
     "collectCoverage": true,
     "moduleNameMapper": {
-      "child_process": "<rootDir>/__mocks__/child_process.mjs"
+      "child_process": "<rootDir>/src/__mocks__/child_process.mjs"
     },
     "testMatch": [
       "**/?(*.)+(spec|test).mjs"
