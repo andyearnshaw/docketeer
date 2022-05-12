@@ -85,6 +85,12 @@ Executed in  387.92 secs      fish           external
 
 That's a saving of over 15 minutes! 
 
+> ℹ️ &nbsp;Docker 4.6 has an experimental feature called [virtiofs][virtiofs] which makes large
+> speed improvements. Using Docketeer is still significantly faster, about twice as fast in one of
+> my tests (~140 seconds > down to ~50).
+
+[virtiofs]: https://www.docker.com/blog/speed-boost-achievement-unlocked-on-docker-desktop-4-6-for-mac/
+
 ## Known Issues
 
 * When Puppeteer is launched without supplying the `userDataDir` option, it generates a temp dir and
