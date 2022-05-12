@@ -1,0 +1,5 @@
+.prettierrc
+coverage/
+node_modules/
+__mocks__/
+**/?*.test.*
