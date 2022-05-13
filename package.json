@@ -8,6 +8,8 @@
     "docketeer": "./src/index.mjs"
   },
   "scripts": {
+    "prettier": "npx prettier --write **/*.[m]js",
+    "prettier:check": "npx prettier --check **/*.[m]js",
     "test": "node --experimental-vm-modules $(npm bin)/jest",
     "test:watch": "npm test -- --watch"
   },
@@ -41,6 +43,7 @@
   },
   "homepage": "https://github.com/andyearnshaw/docketeer#readme",
   "devDependencies": {
-    "jest": "^28.1.0"
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2"
   }
 }
