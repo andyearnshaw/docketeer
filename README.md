@@ -38,7 +38,6 @@ change your Storybook Storyshots puppeteer config:
 | :------------------: | :-------------------: | :-------------------------------------------------- | :-----:                     |
 | `<docker_image>`     | `DOCKETEER_IMAGE`     | The docker image for the browser you want to launch | —                           |
 | `--exec-path=<path>` | `DOCKETEER_EXEC_PATH` | Path to the browser binary inside the docker image  | `google-chrome`             |
-| `--bind-port=<port>` | `DOCKETEER_BIND_PORT` | The port that puppeteer will connect to             | `9222`                      |
 
 ## Why
 

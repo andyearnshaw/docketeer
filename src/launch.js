@@ -4,10 +4,21 @@ import { spawn } from 'child_process';
 const containerName = `docketeer_${(Math.random() + 1)
   .toString(36)
   .substring(7)}`;
+
+const getRandomPort = () => {
+  throw new Error(
+    '--remote-debugging-port=0 is unsupported. Please pass an actual port or use --remote-debugging-pipe.'
+  );
+};
+
 const flags = process.argv.slice(2);
 const image = process.env.DOCKETEER_IMAGE;
 const execPath = process.env.DOCKETEER_EXEC_PATH;
-const bindPort = process.env.DOCKETEER_BIND_PORT;
+const bindPortFlag = flags
+  .find((flag) => flag.startsWith('--remote-debugging-port='))
+  ?.split('=')
+  .pop()
+  .replace(/^0$/, getRandomPort);
 
 const docker = spawn(
   'docker',
@@ -16,7 +27,7 @@ const docker = spawn(
     '--rm',
     '--init',
     `--name=${containerName}`,
-    `-p=${bindPort}:${bindPort}`,
+    ...(bindPortFlag ? [`-p=${bindPortFlag}:${bindPortFlag}`] : []),
     image,
     execPath,
     '--remote-debugging-address=0.0.0.0',

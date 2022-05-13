@@ -69,11 +69,9 @@ describe('docker launcher', () => {
     expect(id1).not.toEqual(id2);
   });
 
-  it('binds to the port provided by the DOCKETEER_BIND_PORT env var', async () => {
+  it('binds to the port provided by the --remote-debugging-port browser flag', async () => {
     await execute({
-      env: {
-        DOCKETEER_BIND_PORT: '3000',
-      },
+      args: ['arg1', '--remote-debugging-port=3000', 'arg2'],
     });
 
     expect(spawn).toHaveBeenCalledTimes(1);
@@ -81,6 +79,16 @@ describe('docker launcher', () => {
     const params = spawn.mock.calls[0][1];
     const dockerFlags = getDockerFlags(params);
     expect(dockerFlags).toContain('-p=3000:3000');
+  });
+
+  it('throws if the --remote-debugging-port flag is set to 0', async () => {
+    await expect(
+      execute({
+        args: ['arg1', '--remote-debugging-port=0', 'arg2'],
+      })
+    ).rejects.toThrow(/--remote-debugging-port/);
+
+    expect(spawn).toHaveBeenCalledTimes(0);
   });
 
   it('runs using the image from the DOCKETEER_IMAGE env var', async () => {
