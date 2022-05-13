@@ -11,9 +11,9 @@ describe('main exec', () => {
     const oldEnv = process.env;
 
     try {
-      process.argv = ['node', 'index.mjs', ...args];
+      process.argv = ['node', 'index.js', ...args];
       process.env = env;
-      await import(`./index.mjs?${Math.random() * 100000}`);
+      await import(`./index.js?${Math.random() * 100000}`);
     } finally {
       process.env = oldEnv;
       process.argv = oldArgv;

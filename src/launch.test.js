@@ -19,9 +19,9 @@ describe('docker launcher', () => {
     const oldEnv = process.env;
 
     try {
-      process.argv = ['node', 'launch.mjs', ...args];
+      process.argv = ['node', 'launch.js', ...args];
       process.env = env;
-      await import(`./launch.mjs?${Math.random() * 100000}`);
+      await import(`./launch.js?${Math.random() * 100000}`);
     } finally {
       process.env = oldEnv;
       process.argv = oldArgv;

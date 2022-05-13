@@ -2,10 +2,10 @@
   "name": "docketeer",
   "version": "1.0.4",
   "description": "A tiny application that lets you use a dockerised browser for Puppeteer",
-  "main": "./index.mjs",
-  "module": "./src/index.mjs",
+  "module": "./src/index.js",
+  "type": "module",
   "bin": {
-    "docketeer": "./src/index.mjs"
+    "docketeer": "./src/index.js"
   },
   "scripts": {
     "prettier": "npx prettier --write **/*.[m]js",
@@ -23,10 +23,10 @@
     "clearMocks": true,
     "collectCoverage": true,
     "moduleNameMapper": {
-      "child_process": "<rootDir>/src/__mocks__/child_process.mjs"
+      "child_process": "<rootDir>/src/__mocks__/child_process.js"
     },
     "testMatch": [
-      "**/?(*.)+(spec|test).mjs"
+      "**/?(*.)+(spec|test).js"
     ],
     "transform": {}
   },
