@@ -1,3 +1,5 @@
+[![Node.js CI](https://github.com/andyearnshaw/docketeer/actions/workflows/node.js.yml/badge.svg)](https://github.com/andyearnshaw/docketeer/actions/workflows/node.js.yml)
+
 # Docketeer
 
 Docketeer allows you to run your Puppeteer scripts on your host machine whilst launching the browser
@@ -8,7 +10,7 @@ tests on macOS when your build pipeline runs them in Linux.
 ## Usage
 
 ```
-docketeer [--exec-path=<browser_bin>] [--bind-port=<port>] <docker_image> <command>
+docketeer [--exec-path=<browser_bin>] <docker_image> <command>
 ```
 
 Simply prefix your usual command with docketeer via `npx`, `pnpx` or whatever the hell Yarn's
