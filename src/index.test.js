@@ -76,7 +76,7 @@ describe('main exec', () => {
     });
   });
 
-  it('sets the PUPPETEER_EXECUTABLE_PATH env var to the local launch.mjs file', async () => {
+  it('sets the PUPPETEER_EXECUTABLE_PATH env var to the local launch.js file', async () => {
     await execute({
       args: ['browserless/chrome', 'npm', 'run', 'myscript'],
     });
@@ -86,7 +86,7 @@ describe('main exec', () => {
       ['run', 'myscript'],
       expect.objectContaining({
         env: expect.objectContaining({
-          PUPPETEER_EXECUTABLE_PATH: path.resolve(__dirname, './launch.mjs'),
+          PUPPETEER_EXECUTABLE_PATH: path.resolve(__dirname, './launch.js'),
         }),
       })
     );

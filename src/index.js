@@ -44,7 +44,7 @@ spawnSync(script[0], script.slice(1), {
     FORCE_COLOR: 'true',
 
     // This tricks Puppeteer into launching our script instead
-    PUPPETEER_EXECUTABLE_PATH: path.resolve(__dirname, './launch.mjs'),
+    PUPPETEER_EXECUTABLE_PATH: path.resolve(__dirname, './launch.js'),
 
     // These are used as arguments to docker run
     DOCKETEER_IMAGE: dockerImage,
