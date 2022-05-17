@@ -8,8 +8,8 @@
     "docketeer": "./src/index.js"
   },
   "scripts": {
-    "prettier": "npx prettier --write **/*.[m]js",
-    "prettier:check": "npx prettier --check **/*.[m]js",
+    "prettier": "npx prettier --write **/*.js",
+    "prettier:check": "npx prettier --check **/*.js",
     "test": "node --experimental-vm-modules $(npm bin)/jest",
     "test:watch": "npm test -- --watch"
   },
