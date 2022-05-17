@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 
 const dockerArgs = ['run', '--rm', '--init'];
 const arraySlice = Array.prototype.slice;
@@ -28,6 +28,12 @@ describe('docker launcher', () => {
       process.argv = oldArgv;
     }
   };
+
+  beforeEach(() => {
+    execSync.mockImplementation((cmd) =>
+      JSON.stringify(cmd.split(/--\s*/).pop().split(/\s/))
+    );
+  });
 
   afterEach(() => {
     jest.restoreAllMocks();
@@ -118,6 +124,22 @@ describe('docker launcher', () => {
     const params = spawn.mock.calls[0][1];
     const execPath = params[getDockerImageIndex(params) + 1];
     expect(execPath).toBe('chromium-browser');
+  });
+
+  it('adds the DOCKETEER_DOCKER_RUN_ARGS env variable to the command before the image param', async () => {
+    await execute({
+      env: {
+        DOCKETEER_DOCKER_RUN_ARGS: '-v=blah:blah -e=MYVAR=5',
+        DOCKETEER_IMAGE: 'browserless/chrome',
+      },
+    });
+
+    expect(spawn).toHaveBeenCalledTimes(1);
+
+    const params = spawn.mock.calls[0][1];
+    const imageArgIndex = getDockerImageIndex(params);
+    const image = params.slice(imageArgIndex - 2, imageArgIndex);
+    expect(image).toEqual(['-v=blah:blah', '-e=MYVAR=5']);
   });
 
   it('sets the --remote-debugging-address chrome flag to 0.0.0.0', async () => {

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 
 const containerName = `docketeer_${(Math.random() + 1)
   .toString(36)
@@ -11,9 +11,23 @@ const getRandomPort = () => {
   );
 };
 
+const parseExtraRunArgs = (args) => {
+  if (!args) {
+    return [];
+  }
+
+  // Borrow Node's arg parsing -- keps this library dependency free
+  const parsedArgs = execSync(
+    `${process.execPath} -p "JSON.stringify(process.argv.slice(1))" -- ${args}`
+  );
+
+  return JSON.parse(parsedArgs);
+};
+
 const flags = process.argv.slice(2);
 const image = process.env.DOCKETEER_IMAGE;
 const execPath = process.env.DOCKETEER_EXEC_PATH;
+const extraRunArgs = process.env.DOCKETEER_DOCKER_RUN_ARGS || '';
 const bindPortFlag = flags
   .find((flag) => flag.startsWith('--remote-debugging-port='))
   ?.split('=')
@@ -28,13 +42,13 @@ const docker = spawn(
     '--init',
     `--name=${containerName}`,
     ...(bindPortFlag ? [`-p=${bindPortFlag}:${bindPortFlag}`] : []),
+    ...parseExtraRunArgs(extraRunArgs),
     image,
     execPath,
-    '--remote-debugging-address=0.0.0.0',
-
     // Pass in the flags specified by Puppeteer, but remove the --user-data-dir flag as a partial
     // workaround for https://github.com/andyearnshaw/docketeer/issues/1
     ...flags.filter((flag) => !flag.startsWith('--user-data-dir=')),
+    '--remote-debugging-address=0.0.0.0',
   ],
   {
     // shell: process.env.SHELL,

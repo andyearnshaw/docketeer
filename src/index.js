@@ -21,6 +21,11 @@ const parseArg = (name, envVar, fallback) =>
   fallback;
 
 const execPath = parseArg('exec-path', 'DOCKETEER_EXEC_PATH', 'google-chrome');
+const dockerRunArgs = parseArg(
+  'docker-run-args',
+  'DOCKETEER_DOCKER_RUN_ARGS',
+  ''
+);
 
 // Fetch the image first so that it doesn't get caught by Puppeteer's timeout
 const pull = spawnSync(`docker`, ['pull', dockerImage], {
@@ -47,6 +52,7 @@ spawnSync(script[0], script.slice(1), {
     PUPPETEER_EXECUTABLE_PATH: path.resolve(__dirname, './launch.js'),
 
     // These are used as arguments to docker run
+    DOCKETEER_DOCKER_RUN_ARGS: dockerRunArgs,
     DOCKETEER_IMAGE: dockerImage,
     DOCKETEER_EXEC_PATH: execPath,
 

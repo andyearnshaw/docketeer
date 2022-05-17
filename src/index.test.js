@@ -213,4 +213,44 @@ describe('main exec', () => {
       })
     );
   });
+
+  it('sets the DOCKETEER_DOCKER_RUN_ARGS var from the parent env if provided', async () => {
+    await execute({
+      env: { DOCKETEER_DOCKER_RUN_ARGS: '-v blah:blah' },
+      args: ['browserless/chrome', 'npm', 'run', 'myscript'],
+    });
+
+    expect(spawnSync).toHaveBeenLastCalledWith(
+      'npm',
+      ['run', 'myscript'],
+      expect.objectContaining({
+        env: expect.objectContaining({
+          DOCKETEER_DOCKER_RUN_ARGS: '-v blah:blah',
+        }),
+      })
+    );
+  });
+
+  it('sets the DOCKETEER_DOCKER_RUN_ARGS var to the value of --docker-run-args if provided', async () => {
+    await execute({
+      env: { DOCKETEER_DOCKER_RUN_ARGS: '-v blah:blah' },
+      args: [
+        '--docker-run-args=-v foo:bar',
+        'browserless/chrome',
+        'npm',
+        'run',
+        'myscript',
+      ],
+    });
+
+    expect(spawnSync).toHaveBeenLastCalledWith(
+      'npm',
+      ['run', 'myscript'],
+      expect.objectContaining({
+        env: expect.objectContaining({
+          DOCKETEER_DOCKER_RUN_ARGS: '-v foo:bar',
+        }),
+      })
+    );
+  });
 });

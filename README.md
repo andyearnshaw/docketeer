@@ -29,15 +29,16 @@ change your Storybook Storyshots puppeteer config:
     storybookUrl: process.env.DOCKETEER_ENABLED ? "http://host.docker.internal:9003" : "http://localhost:9003",
     
     // ...
-  })
+})
 ```
 
 ## Options
 
-| Option               | Env                   | Description                                         | Default                     |
-| :------------------: | :-------------------: | :-------------------------------------------------- | :-----:                     |
-| `<docker_image>`     | `DOCKETEER_IMAGE`     | The docker image for the browser you want to launch | —                           |
-| `--exec-path=<path>` | `DOCKETEER_EXEC_PATH` | Path to the browser binary inside the docker image  | `google-chrome`             |
+| Option                     | Env                         | Description                                         | Default                     |
+| :------------------------: | :-------------------------: | :-------------------------------------------------- | :-------------------------: |
+| `<docker_image>`           | `DOCKETEER_IMAGE`           | The docker image for the browser you want to launch | —                           |
+| `--exec-path=<path>`       | `DOCKETEER_EXEC_PATH`       | Path to the browser binary inside the docker image  | `google-chrome`             |
+| `--docker-run-args=<args>` | `DOCKETEER_DOCKER_RUN_ARGS` | Additional arguments to `docker run`                | —                           |
 
 ## Why
 
