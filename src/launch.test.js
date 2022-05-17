@@ -5,6 +5,7 @@ const dockerArgs = ['run', '--rm', '--init'];
 const arraySlice = Array.prototype.slice;
 
 describe('docker launcher', () => {
+  let importCount = 0;
   const getDockerImageIndex = (params) =>
     1 + params.slice(1).findIndex((param) => !String(param).startsWith('-'));
 
@@ -21,7 +22,7 @@ describe('docker launcher', () => {
     try {
       process.argv = ['node', 'launch.js', ...args];
       process.env = env;
-      await import(`./launch.js?${Math.random() * 100000}`);
+      await import(`./launch.js?${importCount++}`);
     } finally {
       process.env = oldEnv;
       process.argv = oldArgv;

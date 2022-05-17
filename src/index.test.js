@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('main exec', () => {
+  let importCount = 0;
   const execute = async ({ env = {}, args = [] }) => {
     const oldArgv = process.argv;
     const oldEnv = process.env;
@@ -13,7 +14,7 @@ describe('main exec', () => {
     try {
       process.argv = ['node', 'index.js', ...args];
       process.env = env;
-      await import(`./index.js?${Math.random() * 100000}`);
+      await import(`./index.js?${importCount++}`);
     } finally {
       process.env = oldEnv;
       process.argv = oldArgv;
