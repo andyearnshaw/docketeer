@@ -95,6 +95,17 @@ That's a saving of over 15 minutes!
 
 ## Known Issues
 
+* [Puppeteer has a bug][execpathbug] that causes it to ignore `PUPPETEER_EXECUTABLE_PATH`, which is
+  overridden at run time by Docketeer. As a workaround, you can add the `executablePath` option to your
+  launch config:
+  
+  ```javascript
+  puppeteer.launch({
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    // ...
+  });
+  ```
+  
 * When Puppeteer is launched without supplying the `userDataDir` option, it generates a temp dir and
   changes how the browser is closed: it sends a `SIGKILL` instead of allowing the browser to close
   gracefully. With Docketeer, this kills the entire spawned process tree, including the `docker run`
@@ -112,3 +123,5 @@ That's a saving of over 15 minutes!
 
   Don't worry about the directory specified, Docketeer will remove the `--user-data-dir` flag
   supplied to Chrome.
+
+[execpathbug]: https://github.com/puppeteer/puppeteer/issues/6957
